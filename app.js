@@ -13,16 +13,16 @@ const CATS = {
   wor: { label: 'Diaspora & World',     color: '#b07cff' },
 };
 const ERAS = [
-  { kr: 'Ayiti',       en: 'Before 1492',            from: -4200, to: 1492 },
-  { kr: 'Panyòl',      en: 'Spanish rule',           from: 1492,  to: 1625 },
-  { kr: 'Sen Domeng',  en: 'Saint-Domingue',         from: 1625,  to: 1791 },
-  { kr: 'Revolisyon',  en: 'The Revolution',         from: 1791,  to: 1805 },
-  { kr: 'Fondatè',     en: 'Founders & kingdoms',    from: 1804,  to: 1843 },
-  { kr: '19yèm syèk',  en: 'The long 19th century',  from: 1843,  to: 1915 },
-  { kr: 'Okipasyon',   en: 'US occupation',          from: 1915,  to: 1934 },
-  { kr: 'Duvalye',     en: 'Mid-century & Duvalier', from: 1934,  to: 1986 },
-  { kr: 'Demokrasi',   en: 'Democratic era',         from: 1986,  to: 2010 },
-  { kr: 'Jodi a',      en: '2010 – today',           from: 2010,  to: 2027 },
+  { kr: 'Ayiti',       en: 'Before 1492',          from: -4200, to: 1492 },
+  { kr: 'Panyòl',      en: 'Spanish Rule',         from: 1492,  to: 1625 },
+  { kr: 'Sen Domeng',  en: 'Saint-Domingue',       from: 1625,  to: 1791 },
+  { kr: 'Revolisyon',  en: 'The Revolution',       from: 1791,  to: 1805 },
+  { kr: 'Fondatè',     en: 'Founders & Kingdoms',  from: 1804,  to: 1843 },
+  { kr: '19yèm syèk',  en: 'The 19th Century',     from: 1843,  to: 1915 },
+  { kr: 'Okipasyon',   en: 'US Occupation',        from: 1915,  to: 1934 },
+  { kr: 'Duvalye',     en: 'Duvalier Era',         from: 1934,  to: 1986 },
+  { kr: 'Demokrasi',   en: 'Democratic Era',       from: 1986,  to: 2010 },
+  { kr: 'Jodi a',      en: '2010 – Today',         from: 2010,  to: 2027 },
 ];
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const WIKI_UA = 'IstwaAyitiPrototype/0.1 (personal educational project)';
@@ -193,7 +193,7 @@ function draw(now) {
   if (S.visible.length < 3) {
     ctx.fillStyle = 'rgba(232,230,223,0.4)';
     ctx.font = '15px Georgia, serif'; ctx.textAlign = 'center';
-    ctx.fillText('Anpil nan istwa epòk sa a poko ekri.', S.W / 2, S.H / 2 - 12);
+    ctx.fillText('We know little about this stretch of time.', S.W / 2, S.H / 2 - 12);
     ctx.font = '13px system-ui, sans-serif';
     ctx.fillText('Much of this era’s story is archaeological, oral, or lost.', S.W / 2, S.H / 2 + 12);
   }
@@ -371,12 +371,12 @@ function openCard(e) {
     <button class="x" id="card-x" aria-label="Close">×</button>
     <div class="thumb" id="card-thumb"></div>
     <div class="card-body">
-      <div class="kicker"><span class="dot" style="background:${CATS[e.cat].color}"></span>${esc(CATS[e.cat].label)} · ${esc(era.kr)}</div>
+      <div class="kicker"><span class="dot" style="background:${CATS[e.cat].color}"></span>${esc(CATS[e.cat].label)} · ${esc(era.en)}</div>
       <div class="date">${esc(fmtDate(e))}</div>
       <h3>${esc(e.t)}</h3>
       <p>${esc(e.b)}</p>
       <div class="actions">
-        <button class="btn primary" id="card-read">Li tout · Read</button>
+        <button class="btn primary" id="card-read">Read the story</button>
         ${e.wiki ? `<a class="btn" href="https://en.wikipedia.org/wiki/${encodeURIComponent(e.wiki)}" target="_blank" rel="noopener">Wikipedia ↗</a>` : ''}
       </div>
       ${hasPam ? `<div class="pam-badge">★ Full HaitiPAM article available</div>` : ''}
@@ -416,11 +416,11 @@ async function openPanel(e) {
   document.body.classList.add('no-scroll');
   const era = eraOf(e);
   panelBody.innerHTML = `
-    <div class="kicker"><span class="dot" style="background:${CATS[e.cat].color}"></span>${esc(CATS[e.cat].label)} · ${esc(era.kr)} — ${esc(era.en)}</div>
+    <div class="kicker"><span class="dot" style="background:${CATS[e.cat].color}"></span>${esc(CATS[e.cat].label)} · ${esc(era.en)}</div>
     <div class="date">${esc(fmtDate(e))}</div>
     <h1>${esc(e.t)}</h1>
     <p class="lede">${esc(e.b)}</p>
-    <div id="panel-content"><div class="loading">Chajman · loading…</div></div>`;
+    <div id="panel-content"><div class="loading">Loading…</div></div>`;
   const slot = $('panel-content');
 
   if (e._pam) {
@@ -547,7 +547,7 @@ function buildEraRail() {
   ERAS.forEach((era, i) => {
     const b = document.createElement('button');
     b.className = 'era'; b.dataset.i = i;
-    b.innerHTML = `<b>${era.kr}</b><span>${era.en}</span>`;
+    b.innerHTML = `<b>${era.en}</b><span>${era.kr}</span>`;
     b.addEventListener('click', () => animateTo(era.from, era.to));
     rail.appendChild(b);
   });
@@ -579,7 +579,7 @@ async function init() {
     $('count').textContent = 'Could not load events.json — serve this folder over HTTP.';
     return;
   }
-  $('count').textContent = `${S.events.length} limyè · lights`;
+  $('count').textContent = `${S.events.length} moments in time`;
   buildChips(); buildEraRail();
   resize();
   updateEraRail(S.t0, S.t1);

@@ -1,4 +1,4 @@
-# Istwa Ayiti — an interactive timeline of Haitian history
+# Haiti History — an interactive timeline of Haitian history
 
 A histography.io-inspired visual timeline of Haiti: five centuries of history as a
 field of glowing lights. Free, open, no accounts. **Phase 0 prototype.**
