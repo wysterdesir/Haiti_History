@@ -519,7 +519,7 @@ async function loadPam() {
 function buildChips() {
   const wrap = $('chips');
   const all = document.createElement('button');
-  all.className = 'chip active'; all.id = 'chip-all'; all.textContent = 'Tout · All';
+  all.className = 'chip active'; all.id = 'chip-all'; all.textContent = 'All';
   all.addEventListener('click', () => {
     S.cats = new Set(Object.keys(CATS));
     document.querySelectorAll('#chips .chip').forEach(c => c.classList.add('active'));
